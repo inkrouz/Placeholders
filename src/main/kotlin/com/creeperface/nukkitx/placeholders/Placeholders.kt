@@ -11,6 +11,8 @@ import com.creeperface.nukkitx.placeholders.providers.*
 class Placeholders : PluginBase() {
 
     override fun onEnable() {
+        instance = this
+
         val api = PlaceholderAPI.getInstance()
 
         initConfig(api)
@@ -74,5 +76,10 @@ class Placeholders : PluginBase() {
                 }
             }
         }
+    }
+
+    companion object {
+        private lateinit var instance: Placeholders
+        fun getInstance() = instance
     }
 }

@@ -1,6 +1,7 @@
 package com.creeperface.nukkitx.placeholders.providers
 
 import com.creeperface.nukkit.placeholderapi.api.PlaceholderAPI
+import com.creeperface.nukkitx.placeholders.utils.OSUtil
 import kotlin.math.roundToInt
 
 /**
@@ -20,26 +21,26 @@ object NukkitProvider {
         }
 
         papi.build<Int>("player_item_in_hand_id") {
-            processParameters(true)
-
             visitorLoader {
                 return@visitorLoader player.inventory.itemInHand.id
             }
         }
 
         papi.build<Int>("player_health_rounded_int") {
-            processParameters(true)
-
             visitorLoader {
                 return@visitorLoader player.health.roundToInt()
             }
         }
 
         papi.build<Float>("player_health_rounded_float") {
-            processParameters(true)
-
             visitorLoader {
                 return@visitorLoader "%.1f".format(player.health).toFloat()
+            }
+        }
+
+        papi.build<String>("player_os_name") {
+            visitorLoader {
+                return@visitorLoader OSUtil.getOsName(player.loginChainData.deviceOS)
             }
         }
     }
