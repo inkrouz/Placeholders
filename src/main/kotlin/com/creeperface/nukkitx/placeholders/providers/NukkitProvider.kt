@@ -1,6 +1,8 @@
 package com.creeperface.nukkitx.placeholders.providers
 
+import cn.nukkit.entity.effect.EffectType;
 import com.creeperface.nukkit.placeholderapi.api.PlaceholderAPI
+import com.creeperface.nukkitx.placeholders.Placeholders
 import com.creeperface.nukkitx.placeholders.utils.OSUtil
 import kotlin.math.roundToInt
 
@@ -35,6 +37,15 @@ object NukkitProvider {
         papi.build<Float>("player_health_rounded_float") {
             visitorLoader {
                 return@visitorLoader "%.1f".format(player.health).toFloat()
+            }
+        }
+
+        papi.build<String>("player_health_normal_or_absorbed") {
+            processParameters(true)
+            visitorLoader {
+                val normal = Placeholders.getInstance().config.getString("health.normal")
+                val absorbed = Placeholders.getInstance().config.getString("health.absorbed")
+                if (player.hasEffect(EffectType.ABSORPTION)) absorbed else normal
             }
         }
 

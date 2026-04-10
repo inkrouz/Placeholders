@@ -45,13 +45,7 @@ class Placeholders : PluginBase() {
                 ResidenceProvider.registerPlaceholders(api)
                 logger.info("${TextFormat.AQUA}Residence placeholders loaded")
             }
-
-            getPlugin("SynapseAPI")?.let {
-                SynapseAPIProvider.registerPlaceholders(api)
-                logger.info("${TextFormat.AQUA}SynapseAPI placeholders loaded")
-            }
         }
-
     }
 
     private fun initConfig(api: PlaceholderAPI) {

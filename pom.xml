@@ -9,7 +9,7 @@
     <version>1.0.2-SNAPSHOT</version>
 
     <properties>
-        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.version>2.3.20</kotlin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -27,6 +27,10 @@
             <id>onebone</id>
             <url>http://jenkins.onebone.me/plugin/repository/everything/</url>
         </repository>
+        <repository>
+            <id>luminiadev-repository-snapshots</id>
+            <url>https://repo.luminiadev.com/snapshots</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -43,10 +47,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>cn.nukkit</groupId>
-            <artifactId>nukkit</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
+            <groupId>com.koshakmine</groupId>
+            <artifactId>Lumi</artifactId>
+            <version>1.5.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.creeperface.nukkit.placeholderapi</groupId>
@@ -63,13 +66,8 @@
             <groupId>me.onebone</groupId>
             <artifactId>economyapi</artifactId>
             <version>2.0.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.itxtech.synapse</groupId>
-            <artifactId>synapse-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>provided</scope>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/EconomyAPI-2.0.5.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.massivecraft.factions</groupId>
@@ -93,16 +91,20 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/Multipass.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
-                <version>2.1.10</version>
+                <version>${kotlin.version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -119,6 +121,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jvmTarget>${maven.compiler.target}</jvmTarget>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -135,6 +140,34 @@
                 <configuration>
                     <mainClass>MainKt</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

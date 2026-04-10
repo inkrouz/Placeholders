@@ -19,3 +19,8 @@ os-names:
   nintendo: "Nintendo Switch"
   xbox: "Xbox"
   windows_phone: "Windows Phone"
+
+# Health icons
+health:
+  normal: ""
+  absorbed: ""
