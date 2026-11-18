@@ -21,9 +21,6 @@ jobs:
           java-version: 21
           cache: maven
 
-      - name: Check lib folder
-        run: ls -la lib || echo "Папки lib нет"
-
       - name: Build
         run: mvn -B clean package -DskipTests
 
