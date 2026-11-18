@@ -19,41 +19,29 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: maven
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.10.2"
+      - name: Check lib folder
+        run: ls -la lib || echo "Папки lib нет"
 
       - name: Build
-        run: |
-          if [ -f gradlew ]; then
-            chmod +x gradlew
-            ./gradlew build -x test --no-daemon
-          elif [ -f build.gradle ] || [ -f build.gradle.kts ]; then
-            gradle build -x test --no-daemon
-          elif [ -f pom.xml ]; then
-            mvn -B clean package -DskipTests
-          else
-            echo "Не найден ни Gradle, ни Maven" && exit 1
-          fi
+        run: mvn -B clean package -DskipTests
 
       - name: Show built files
-        run: ls -la build/libs target 2>/dev/null || true
+        run: ls -la target
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: Placeholders
           path: |
-            build/libs/*.jar
             target/*.jar
+            !target/original-*.jar
 
-      - name: Create release (прямая ссылка на скачивание)
+      - name: Create release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
           name: Build ${{ github.run_number }}
           files: |
-            build/libs/*.jar
             target/*.jar
