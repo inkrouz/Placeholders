@@ -25,26 +25,6 @@ class Placeholders : PluginBase() {
                 LuckPermsProvider.registerPlaceholders(api)
                 logger.info("${TextFormat.AQUA}LuckPerms placeholders loaded")
             }
-
-            getPlugin("Multipass")?.let {
-                MultipassProvider.registerPlaceholders(api)
-                logger.info("${TextFormat.AQUA}Multipass placeholders loaded")
-            }
-
-            getPlugin("Factions")?.let {
-                FactionsProvider.registerPlaceholders(api)
-                logger.info("${TextFormat.AQUA}Factions placeholders loaded")
-            }
-
-            getPlugin("EconomyAPI")?.let {
-                EconomyAPIProvider.registerPlaceholders(api)
-                logger.info("${TextFormat.AQUA}EconomyAPI placeholders loaded")
-            }
-
-            getPlugin("Residence")?.let {
-                ResidenceProvider.registerPlaceholders(api)
-                logger.info("${TextFormat.AQUA}Residence placeholders loaded")
-            }
         }
     }
 
